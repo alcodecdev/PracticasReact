@@ -1,11 +1,17 @@
 import React from "react";
 
-export function Skill({text}) {
+export function Skill({array, show}) {
     return (
+        show && (
         <div>
             <ul>
-                <li>{text}</li>
+                {
+                    array.map((item, index) => (
+                        <li key={index}>{item}</li>
+                    ))
+                }
             </ul>
         </div>
+        )
     )
 }
