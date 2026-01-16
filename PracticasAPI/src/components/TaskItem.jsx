@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 export default function TaskItem() {
     const [id, setId] = useState("");
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const buscarTask = () => {
@@ -11,7 +11,8 @@ export default function TaskItem() {
         fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
             .then(res => res.json())
             .then(data => {
-                setTasks(data);
+                // Si el objeto viene vacío ponemos null
+                setTasks(data.id ? data : null);
                 setLoading(false);
 
             })
@@ -28,10 +29,13 @@ export default function TaskItem() {
                 type="number"
                 placeholder="Introduce un ID (ej:3)"
                 value={id}
-                onChange={e => setId(e.target.value)}
+                onChange={e => {setId(e.target.value)
+                    if(e.target.value === "") setTasks(null)}}
             />
-            <button onClick={buscarTask}>Buscar</button>
-            {tasks && !loading && (
+            <button onClick={buscarTask} disabled={loading}>
+                {loading ? 'Buscando...' : 'Buscar'}
+            </button>
+            {id && tasks && !loading && (
                 <div>
                     <p>ID: {tasks.id}</p>
                     <p>Titulo: {tasks.title}</p>
