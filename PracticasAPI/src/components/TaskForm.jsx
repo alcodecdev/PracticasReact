@@ -13,7 +13,7 @@ export default function TaskForm() {
         e.preventDefault();
 
         //Bloqueo el boton para dar feedback visual
-        setLoading(false);
+        setLoading(true);
 
         fetch("https://jsonplaceholder.typicode.com/todos", {
             method: "POST",
@@ -60,7 +60,7 @@ export default function TaskForm() {
                 <div style={{ color: 'blue' }}>
                     <h4>Respuesta de la API:</h4>
                     <p>ID generado: {result.id}</p>
-                    <p>Tarea: {result.title}</p>
+                    <p>Titulo: {result.title}</p>
                     <p>Estado: {result.completed ? "Completada" : "Pendiente"}</p>
                 </div>
                 )}
